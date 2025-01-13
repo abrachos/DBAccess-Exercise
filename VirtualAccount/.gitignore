@@ -169,3 +169,13 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Docker 
+*.docker 
+docker-compose.override.yml
+
+# Terraform files 
+.terraform/ 
+*.tfstate 
+*.tfstate.backup 
+*.terraform.lock.hcl
