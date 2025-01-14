@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - pipeline-setup
+      - pipeline-setup  # Asegúrate de que esto coincida con tu rama de trabajo
 
 jobs:
   build:
@@ -33,12 +33,16 @@ jobs:
         cache-to: type=gha,mode=max
 
     - name: Set up kubectl
-      uses: azure/setup-kubectl@v3
+      uses: azure/setup-kubectl@v3  # Cambiar a la versión correcta v3
       with:
         version: 'latest'
 
+    - name: Create .kube directory
+      run: mkdir -p $HOME/.kube
+
     - name: Set up Kubeconfig
-      run: echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+      run: |
+        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
 
     - name: Deploy to Kubernetes
       run: |
