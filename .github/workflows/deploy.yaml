@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - pipeline-setup  # Asegúrate de que esto coincida con tu rama de traba
+      - pipeline-setup  # Asegúrate de que esto coincida con tu rama de trabajo
 
 jobs:
   build:
