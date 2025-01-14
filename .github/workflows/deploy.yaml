@@ -50,13 +50,11 @@ jobs:
     - name: Set up Kubeconfig
       run: echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
 
-    - name: Get EKS Token
+    - name: Get EKS Token and update Kubeconfig
       run: |
-        aws eks get-token --region ${{ secrets.AWS_REGION }} --cluster-name virtualaccount-cluster > $HOME/.kube/aws_token.json
+        aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name virtualaccount-cluster
 
     - name: Deploy to Kubernetes
       run: |
-        export KUBECONFIG=$HOME/.kube/config
         kubectl apply -f kubernetes/deployment.yaml
         kubectl apply -f kubernetes/service.yaml
-        kubectl apply -f kubernetes/ingress.yaml
