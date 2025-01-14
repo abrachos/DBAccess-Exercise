@@ -1,0 +1,40 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - pipeline-setup
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/abrachos/virtualaccount:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v2
+      with:
+        version: 'latest'
+
+    - name: Set up Kubeconfig
+      run: echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f kubernetes/deployment.yaml
+        kubectl apply -f kubernetes/service.yaml
+        kubectl apply -f kubernetes/ingress.yaml
