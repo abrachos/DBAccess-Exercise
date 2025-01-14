@@ -55,6 +55,8 @@ jobs:
         aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name virtualaccount-cluster
 
     - name: Deploy to Kubernetes
+      env:
+        KUBECONFIG: $HOME/.kube/config
       run: |
         kubectl apply -f kubernetes/deployment.yaml
         kubectl apply -f kubernetes/service.yaml
