@@ -20,7 +20,7 @@ jobs:
     - name: Configure AWS credentials using OIDC
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        role-to-assume: arn:aws:iam::<your-account-id>:role/<your-role-name>
+        role-to-assume: arn:aws:iam::509399606070:role/githubactiontoaws
         aws-region: us-east-2
 
     - name: Set up Docker Buildx
@@ -67,4 +67,3 @@ jobs:
       run: |
         kubectl apply -f kubernetes/deployment.yaml
         kubectl apply -f kubernetes/service.yaml
-
