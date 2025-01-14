@@ -51,10 +51,9 @@ jobs:
       run: |
         echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
 
-    - name: Update Kubeconfig with EKS
+    - name: Get EKS Token and update Kubeconfig
       run: |
         aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name virtualaccount-cluster
-        export KUBECONFIG=$HOME/.kube/config
 
     - name: Validate Kubeconfig
       run: |
@@ -68,9 +67,3 @@ jobs:
       run: |
         kubectl apply -f kubernetes/deployment.yaml
         kubectl apply -f kubernetes/service.yaml
-
-
-
- # - name: Get EKS Token and update Kubeconfig
-    #   run: |
-    #     aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name virtualaccount-cluster
