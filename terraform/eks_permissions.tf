@@ -1,14 +1,13 @@
-data "aws_iam_user" "github_action_user" {
-  user_name = "githubaction_aws"
+data "aws_iam_role" "github_action_role" {
+  name = "githubactiontoaws"
 }
 
-resource "aws_iam_role_policy_attachment" "github_action_user_AmazonEKSAdminPolicy" {
-  role       = data.aws_iam_user.github_action_user.user_name
+resource "aws_iam_role_policy_attachment" "github_action_role_AmazonEKSAdminPolicy" {
+  role       = data.aws_iam_role.github_action_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSAdminPolicy"
 }
 
-resource "aws_iam_role_policy_attachment" "github_action_user_AmazonEKSClusterAdminPolicy" {
-  role       = data.aws_iam_user.github_action_user.user_name
+resource "aws_iam_role_policy_attachment" "github_action_role_AmazonEKSClusterAdminPolicy" {
+  role       = data.aws_iam_role.github_action_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
-
