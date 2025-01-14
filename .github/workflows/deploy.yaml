@@ -33,7 +33,7 @@ jobs:
         cache-to: type=gha,mode=max
 
     - name: Set up kubectl
-      uses: azure/setup-kubectl@v3  # Cambiar a la versión correcta
+      uses: azure/setup-kubectl@v3  # Cambiar a la versión correct
       with:
         version: 'latest'
 
