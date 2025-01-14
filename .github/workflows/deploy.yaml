@@ -62,6 +62,10 @@ jobs:
         kubectl config current-context
         kubectl get nodes
 
+    - name: Verify Access
+      run: |
+        kubectl get namespaces
+
     - name: Deploy to Kubernetes
       env:
         KUBECONFIG: $HOME/.kube/config
