@@ -20,8 +20,17 @@ jobs:
     - name: Configure AWS credentials using OIDC
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        role-to-assume: arn:aws:iam::509399606070:role/githubactiontoaws
+        role-to-assume: arn:aws:iam::509399606070:role/githubactiontoaws  # Reemplaza con el ARN correcto de tu rol IAM
         aws-region: us-east-2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Apply Terraform
+      run: terraform apply -auto-approve
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
@@ -36,7 +45,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: ./VirtualAccount #directori
+        context: ./VirtualAccount
         push: true
         tags: ghcr.io/abrachos/virtualaccount:latest
         cache-from: type=gha
@@ -60,6 +69,10 @@ jobs:
         kubectl config get-contexts
         kubectl config current-context
         kubectl get nodes
+
+    - name: Verify Access
+      run: |
+        kubectl get namespaces
 
     - name: Deploy to Kubernetes
       env:
