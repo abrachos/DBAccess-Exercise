@@ -28,11 +28,11 @@ jobs:
 
     - name: Initialize Terraform
       run: terraform init
-      working-directory: terraform/eks_permissions.tf
+      working-directory: terraform
 
     - name: Apply Terraform
       run: terraform apply -auto-approve
-      working-directory: terraform/eks_permissions.tf
+      working-directory: terraform
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
