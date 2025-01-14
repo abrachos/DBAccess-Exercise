@@ -21,7 +21,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
-        password: ${{ secrets.GHCR_TOKEN }}  
+        password: ${{ secrets.GHCR_TOKEN }}  # Usar el secreto GHCR_TOKEN
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
@@ -37,12 +37,18 @@ jobs:
       with:
         version: 'latest'
 
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
     - name: Create .kube directory
       run: mkdir -p $HOME/.kube
 
     - name: Set up Kubeconfig
-      run: |
-        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
+      run: echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
 
     - name: Deploy to Kubernetes
       run: |
