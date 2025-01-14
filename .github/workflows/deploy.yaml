@@ -63,7 +63,7 @@ jobs:
 
     - name: Get EKS Token and update Kubeconfig
       run: |
-        aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name virtualaccount-cluster
+        aws eks update-kubeconfig --region us-east-2 --name virtualaccount-cluster
         export KUBECONFIG=$HOME/.kube/config
 
     - name: Validate Kubeconfig
