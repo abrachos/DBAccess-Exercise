@@ -48,9 +48,7 @@ jobs:
         version: 'latest'
 
     - name: Create .kube directory
-      run: |
-        mkdir -p $HOME/.kube
-        chown $(id -u):$(id -g) $HOME/.kube/config
+      run: mkdir -p $HOME/.kube
 
     - name: Get EKS Token and update Kubeconfig
       run: |
@@ -64,6 +62,10 @@ jobs:
         kubectl config current-context
         kubectl cluster-info
         kubectl get nodes
+        
+    - name: Use specific kubeconfig context 
+      run: | 
+        kubectl config use-context arn:aws:eks:us-east-2:509399606070:cluster/virtualaccount-cluster
 
     - name: Verify Access
       run: |
