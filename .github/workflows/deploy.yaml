@@ -20,7 +20,7 @@ jobs:
     - name: Configure AWS credentials using OIDC
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        role-to-assume: arn:aws:iam::509399606070:role/githubactiontoaws  # Reemplaza con el ARN correcto de tu rol IAM
+        role-to-assume: arn:aws:iam::509399606070:role/githubactiontoaws
         aws-region: us-east-2
 
     - name: Set up Docker Buildx
@@ -54,7 +54,7 @@ jobs:
       run: |
         aws eks update-kubeconfig --region us-east-2 --name virtualaccount-cluster
         cat ~/.kube/config
-        #export KUBECONFIG=$HOME/.kube/config
+        export KUBECONFIG=$HOME/.kube/config
 
     - name: Validate Kubeconfig
       run: |
@@ -66,12 +66,18 @@ jobs:
       run: |
         kubectl get namespaces
 
+    - name: Debug kubeconfig
+      run: |
+        kubectl cluster-info
+        kubectl config view
+        kubectl get nodes
+
     - name: Deploy to Kubernetes
       env:
         KUBECONFIG: $HOME/.kube/config
       run: |
-        kubectl apply -f kubernetes/deployment.yaml
-        kubectl apply -f kubernetes/service.yaml
+        kubectl apply --validate=false -f kubernetes/deployment.yaml
+        kubectl apply --validate=false -f kubernetes/service.yaml
 
     - name: Set output
       run: echo "DEPLOY_STATUS=success" >> $GITHUB_ENV
