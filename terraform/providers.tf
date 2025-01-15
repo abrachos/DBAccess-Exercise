@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.0"
+      version = ">= 4.0.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -14,8 +14,6 @@ terraform {
 provider "aws" {
   alias  = "eks"
   region = "us-east-2"
-  read_timeout  = "60s"
-  write_timeout = "60s"
 }
 
 provider "kubernetes" {
@@ -25,9 +23,11 @@ provider "kubernetes" {
 }
 
 data "aws_eks_cluster" "cluster" {
+  provider = aws.eks
   name = "virtualaccount-cluster"
 }
 
 data "aws_eks_cluster_auth" "cluster" {
+  provider = aws.eks
   name = data.aws_eks_cluster.cluster.name
 }
