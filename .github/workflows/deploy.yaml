@@ -49,6 +49,8 @@ jobs:
 
     - name: Create .kube directory
       run: mkdir -p $HOME/.kube
+      run: sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+      run: sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
     - name: Get EKS Token and update Kubeconfig
       run: |
@@ -71,6 +73,8 @@ jobs:
       run: |
         kubectl cluster-info
         kubectl config view
+        kubectl config get-contexts 
+        kubectl config current-context
         kubectl get nodes
 
     - name: Deploy to Kubernetes
