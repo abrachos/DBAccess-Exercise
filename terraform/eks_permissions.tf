@@ -28,6 +28,12 @@ resource "kubernetes_role" "eks_role" {
     resources  = ["nodes", "pods", "services"]
     verbs      = ["get", "list", "watch"]
   }
+
+  lifecycle {
+    ignore_changes = [
+      metadata[0].annotations["kubectl.kubernetes.io/last-applied-configuration"]
+    ]
+  }
 }
 
 resource "kubernetes_role_binding" "eks_rolebinding" {

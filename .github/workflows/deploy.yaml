@@ -84,3 +84,9 @@ jobs:
       run: |
         kubectl apply -f kubernetes/deployment.yaml
         kubectl apply -f kubernetes/service.yaml
+
+    - name: Set output
+      run: echo "DEPLOY_STATUS=success" >> $GITHUB_ENV
+
+    - name: Display output
+      run: echo "The deployment status is ${{ env.DEPLOY_STATUS }}"
