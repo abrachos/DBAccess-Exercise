@@ -60,6 +60,7 @@ jobs:
       run: |
         kubectl config get-contexts
         kubectl config current-context
+        kubectl cluster-info
         kubectl get nodes
 
     - name: Verify Access
