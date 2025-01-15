@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: github-actions-role
+rules:
+- apiGroups: [""]
+  resources: ["nodes", "pods", "services", "configmaps", "persistentvolumeclaims", "pods/exec", "pods/log", "pods/portforward", "services"]
+  verbs: ["get", "list", "watch", "update", "create", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "statefulsets"]
+  verbs: ["get", "list", "watch", "update", "create", "patch", "delete"]
