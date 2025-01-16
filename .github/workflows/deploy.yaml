@@ -108,6 +108,7 @@ jobs:
       run: |  
         kubectl apply --validate=false -f kubernetes/deployment.yaml
         kubectl apply --validate=false -f kubernetes/service.yaml
+        kubectl rollout restart deployment/flask-deployment
 
     - name: Set output
       run: echo "DEPLOY_STATUS=success" >> $GITHUB_ENV
