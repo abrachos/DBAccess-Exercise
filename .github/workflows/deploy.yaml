@@ -74,7 +74,7 @@ jobs:
       run: |
         aws eks update-kubeconfig --region us-east-2 --name virtualaccount-cluster
         export KUBECONFIG=$HOME/.kube/config
-        sed -i '/apiVersion:/a\ \ \ \ \ \ interactiveMode: IfAvailable' $HOME/.kube/config
+        sed -i '/exec:/a\ \ \ \ \ \ interactiveMode: IfAvailable' $HOME/.kube/config
         #sed -i '/- --output/a\ \ \ \ \ \ \ \ - virtualaccount-cluster\n\ \ \ \ \ \ \ \ interactiveMode: IfAvailable' $HOME/.kube/config
         sed -i 's/client.authentication.k8s.io\/v1alpha1/client.authentication.k8s.io\/v1/g' $HOME/.kube/config 
         sed -i 's/client.authentication.k8s.io\/v1beta1/client.authentication.k8s.io\/v1/g' $HOME/.kube/config
