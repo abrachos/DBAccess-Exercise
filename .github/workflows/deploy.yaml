@@ -107,6 +107,8 @@ jobs:
       env:
         KUBECONFIG: $HOME/.kube/config
       run: |
+        pwd 
+        ls -lth
         kubectl apply --validate=false -f kubernetes/deployment.yaml
         kubectl apply --validate=false -f kubernetes/service.yaml
 
