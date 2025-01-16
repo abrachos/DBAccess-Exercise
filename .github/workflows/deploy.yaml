@@ -20,7 +20,7 @@ jobs:
     - name: Configure AWS credentials using OIDC
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        role-to-assume: arn:aws:iam::509399606070:role/githubactiontoaws #BAa
+        role-to-assume: arn:aws:iam::509399606070:role/githubactiontoaws #BA
         aws-region: us-east-2
 
     - name: Set up Docker Buildx
@@ -78,6 +78,7 @@ jobs:
         sed -i 's/client.authentication.k8s.io\/v1alpha1/client.authentication.k8s.io\/v1/g' $HOME/.kube/config 
         sed -i 's/client.authentication.k8s.io\/v1beta1/client.authentication.k8s.io\/v1/g' $HOME/.kube/config
         cat $HOME/.kube/config
+        kubectl config view
 
     - name: Validate Kubeconfig
       run: |
