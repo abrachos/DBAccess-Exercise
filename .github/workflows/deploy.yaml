@@ -41,6 +41,7 @@ jobs:
         tags: ghcr.io/abrachos/virtualaccount:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
+        no-cache: true
     
     - name: Install kubectl 1.32.0 
       run: | 
