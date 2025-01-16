@@ -47,6 +47,12 @@ jobs:
       with:
         version: 'latest'
 
+    - name: Verify kubectl version 
+      run: kubectl version --client 
+    
+    - name: Verify awscli version 
+      run: aws --version
+
     - name: Create .kube directory
       run: mkdir -p $HOME/.kube
 
