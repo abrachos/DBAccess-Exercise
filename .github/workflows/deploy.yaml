@@ -72,8 +72,10 @@ jobs:
     - name: Get EKS Token and update Kubeconfig
       run: |
         aws eks update-kubeconfig --region us-east-2 --name virtualaccount-cluster
-        cat ~/.kube/config
         export KUBECONFIG=$HOME/.kube/config
+        sed -i 's/client.authentication.k8s.io\/v1alpha1/client.authentication.k8s.io\/v1/g' $HOME/.kube/config 
+        sed -i 's/client.authentication.k8s.io\/v1beta1/client.authentication.k8s.io\/v1/g' $HOME/.kube/config
+        cat ~/.kube/config
 
     - name: Validate Kubeconfig
       run: |
