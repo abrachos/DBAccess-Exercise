@@ -20,7 +20,7 @@ jobs:
     - name: Configure AWS credentials using OIDC
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        role-to-assume: arn:aws:iam::509399606070:role/githubactiontoaws #B
+        role-to-assume: arn:aws:iam::509399606070:role/githubactiontoaws #BA
         aws-region: us-east-2
 
     - name: Set up Docker Buildx
