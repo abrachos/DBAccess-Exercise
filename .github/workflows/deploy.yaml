@@ -42,18 +42,18 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
     
-    - name: Install kubectl 1.32.0 
-      run: | 
-        curl -LO "https://dl.k8s.io/release/v1.32.0/bin/linux/amd64/kubectl" 
-        chmod +x kubectl 
-        sudo mv kubectl /usr/local/bin/ 
-      
-    - name: Install aws-cli 2.22.33 
-      run: | 
-        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.2.33.zip" -o "awscliv2.zip" 
-        unzip awscliv2.zip 
-        sudo ./aws/install --update
-        aws --version # Verificación
+   # - name: Install kubectl 1.32.0 
+   #   run: | 
+   #     curl -LO "https://dl.k8s.io/release/v1.32.0/bin/linux/amd64/kubectl" 
+   #     chmod +x kubectl 
+   #     sudo mv kubectl /usr/local/bin/ 
+   #   
+   # - name: Install aws-cli 2.22.33 
+   #   run: | 
+   #     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.2.33.zip" -o "awscliv2.zip" 
+   #     unzip awscliv2.zip 
+   #     sudo ./aws/install --update
+   #     aws --version # Verificación
 
     - name: Set up kubectl
       uses: azure/setup-kubectl@v3
@@ -78,7 +78,6 @@ jobs:
         sed -i 's/client.authentication.k8s.io\/v1alpha1/client.authentication.k8s.io\/v1/g' $HOME/.kube/config 
         sed -i 's/client.authentication.k8s.io\/v1beta1/client.authentication.k8s.io\/v1/g' $HOME/.kube/config
         cat $HOME/.kube/config
-        kubectl config view
 
     - name: Validate Kubeconfig
       run: |
