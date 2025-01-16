@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: ghcr.io/abrachos/virtualaccount:latest1
+        image: ghcr.io/abrachos/virtualaccount:latest
         ports:
         - containerPort: 5034
         env:
