@@ -111,6 +111,13 @@ jobs:
         kubectl apply --validate=false -f kubernetes/ingress.yaml
         kubectl rollout restart deployment/flask-deployment
 
+    - name: Insert Data into RDS Using cURL 
+        run: | 
+          sleep 30 # Esperar a que el despliegue esté activo 
+          INGRESS_HOST=$(kubectl get ingress flask-ingress -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' -n default) 
+          curl -X GET "http://$INGRESS_HOST/add?name=John&money=1000" 
+          curl -X GET "http://$INGRESS_HOST/add?name=Jane&money=1500"
+
     - name: Set output
       run: echo "DEPLOY_STATUS=success" >> $GITHUB_ENV
 
