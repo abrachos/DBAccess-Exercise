@@ -20,5 +20,7 @@ spec:
         env:
         - name: DATABASE_URL
           value: "postgresql://postgres:postgres@clientes-db.cxus460ksq21.us-east-2.rds.amazonaws.com:5432/clientes_db"
+        - name: APP_SETTINGS 
+          value: "config.Config"
       imagePullSecrets:
       - name: ghcr-secret
